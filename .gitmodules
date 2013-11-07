@@ -1,0 +1,3 @@
+[submodule "targets/armeabi-v7a"]
+	path = targets/armeabi-v7a
+	url = git@github.com:h4tr3d/ffmpeg-droid-bin-armeabi-v7a.git
