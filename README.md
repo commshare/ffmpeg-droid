@@ -45,4 +45,7 @@ Binary builds
 Binary builds located at the `targets/TARGET` subdirectory.
 
 Binary builds also located in GIT repository and can be reseived:
+    git submodule init
+    git submodule update
+
 
