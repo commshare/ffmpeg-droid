@@ -114,7 +114,7 @@ case $target in
         EXTRA_LDFLAGS=""
 
     ;;
-    armemabi-v7a)
+    armeabi-v7a)
         NDK_ABI=arm
         HOST=$NDK_ABI-linux-androideabi
         NDK_TOOLCHAIN=$HOST-$NDK_COMPILER_VERSION
