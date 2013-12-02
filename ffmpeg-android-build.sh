@@ -10,10 +10,11 @@ api_level=14
 target=armeabi-v7a
 compiler_version=4.8
 ndk_home=$NDK_HOME
+build_forks=
 
 usage() {
 cat << _EOF
-Use: $0 [--api-level LEVEL] [--target TARGET] [--compiler-version CVER] [--ndk-home NDK_HOME]
+Use: $0 [--api-level LEVEL] [--target TARGET] [--compiler-version CVER] [--ndk-home NDK_HOME] [-j BUILD_FORKS]
   
   LEVEL: see at the NDK_HOME/platform. Level is a digit
     14*
@@ -29,7 +30,9 @@ Use: $0 [--api-level LEVEL] [--target TARGET] [--compiler-version CVER] [--ndk-h
     4.8*
 
   NDK_HOME: usaly /opt/android-ndk (this value sets by defaul)
-  
+
+  BUILD_FORKS: amout of parallel build processes, autodetect if omited
+
   Asterisk (*) marks default values
 _EOF
 }
@@ -59,6 +62,11 @@ while [ -n "$1" ]; do
             ndk_home=$1
         ;;
         
+        -j)
+            shift
+            build_forks=$1
+        ;;
+        
         --help)
             usage
             exit 0
@@ -72,6 +80,11 @@ while [ -n "$1" ]; do
     
     shift
 done
+
+# Autodetect parallel build
+if [ -z "$build_forks" ]; then
+    build_forks=`cat /proc/cpuinfo | grep processor | wc -l`
+fi
 
 # Android NDK setup
 NDK_PLATFORM_LEVEL=$api_level
@@ -272,7 +285,7 @@ configure_ffmpeg() {
 
 build_ffmpeg() {
     make clean
-    make
+    make -j $build_forks
     make install
 
     mkdir -p "$START_DIR/targets/$NDK_TARGET"
