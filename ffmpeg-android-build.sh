@@ -289,7 +289,7 @@ build_ffmpeg() {
     make install
 
     mkdir -p "$START_DIR/targets/$NDK_TARGET"
-    cp -a "$TOOLCHAIN/build/*" "$START_DIR/targets/$NDK_TARGET/"
+    cp -a "$TOOLCHAIN/build/"* "$START_DIR/targets/$NDK_TARGET/"
     rm -rf "$START_DIR/targets/$NDK_TARGET/lib/pkgconfig"
 }
 
